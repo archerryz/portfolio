@@ -232,7 +232,9 @@
     border:2px solid transparent;transition:.2s;position:relative;overflow:hidden;
   }
   .price:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(243,137,162,.25);}
-  .price .emoji{font-size:2rem;}
+  .price .emoji{position:relative;width:100%;max-width:216px;height:216px;font-size:8rem;}
+  .price .emoji img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
+  .price .emoji .fb{position:absolute;inset:0;display:grid;place-items:center;line-height:1;}
   .price h3{font-family:var(--font-display);font-weight:800;font-size:1.35rem;margin:.4rem 0 .1rem;}
   .price .sub{font-size:.72rem;font-weight:800;color:var(--grape);margin:0 0 .5rem;text-transform:uppercase;letter-spacing:.6px;}
   .price .cost{font-family:var(--font-display);font-weight:800;font-size:1.9rem;color:var(--pink);}
@@ -417,28 +419,28 @@
 
     <div class="price-grid">
       <div class="price">
-        <div class="emoji">🎨</div>
+        <div class="emoji"><img src="images/price01.png" alt="" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.remove()"><span class="fb">🎨</span></div>
         <h3>Illustration</h3>
         <div class="sub">SKEB</div>
         <div class="cost"><small>from </small>$30</div>
         <ul><li>WIP updates + mistake fixes only</li><li>Headshot only</li><li>Clean rendering</li><li>Simple background</li><li>Delivered as PNG &amp; JPEG</li></ul>
       </div>
       <div class="price">
-        <div class="emoji">🍡</div>
+        <div class="emoji"><img src="images/price02.png" alt="" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.remove()"><span class="fb">🍡</span></div>
         <h3>Chibi</h3>
         <div class="sub">Headshot</div>
         <div class="cost"><small>from </small>$10</div>
         <ul><li>Cute &amp; soft art style</li><li>Simple coloring</li><li>Simple background</li><li>Delivered as PNG &amp; JPEG</li></ul>
       </div>
       <div class="price featured">
-        <div class="emoji">✨</div>
+        <div class="emoji"><img src="images/price03.png" alt="" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.remove()"><span class="fb">✨</span></div>
         <h3>Chibi Animation</h3>
         <div class="sub">YCH</div>
         <div class="cost"><small>from </small>$60</div>
         <ul><li>Ready-made animated pose</li><li>Waist-up only</li><li>4-sec loop animation</li><li>Simple &amp; clean art style</li><li>Delivered as GIF &amp; MP4</li></ul>
       </div>
       <div class="price">
-        <div class="emoji">🌟</div>
+        <div class="emoji"><img src="images/price04.png" alt="" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.remove()"><span class="fb">🌟</span></div>
         <h3>Chibi Animation</h3>
         <div class="sub">Custom</div>
         <div class="cost"><small>from </small>$70</div>
