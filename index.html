@@ -257,6 +257,9 @@
   .tos{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
   .tos-card{background:var(--paper);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow);}
   .tos-card h3{font-family:var(--font-display);font-size:1.2rem;margin:0 0 .8rem;display:flex;align-items:center;gap:.5rem;}
+  .tos-card h3 .ico{position:relative;flex:none;width:32px;height:32px;font-size:1.4rem;}
+  .tos-card h3 .ico img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
+  .tos-card h3 .ico .fb{position:absolute;inset:0;display:grid;place-items:center;line-height:1;}
   .tos-card ul{margin:0;padding-left:1.2rem;}
   .tos-card li{margin:.4rem 0;font-weight:600;color:var(--ink-soft);}
   .tos-card .note{margin:.9rem 0 0;padding-top:.85rem;border-top:2px dashed rgba(243,137,162,.22);font-style:italic;font-weight:700;color:var(--grape);font-size:.9rem;}
@@ -285,6 +288,8 @@
 
   footer{text-align:center;padding:34px 0 44px;color:var(--ink-soft);font-weight:600;font-size:.9rem;position:relative;z-index:1;}
   footer .heart{color:var(--pink);}
+  footer .visitors{margin:0 0 12px;font-weight:800;color:var(--ink-soft);}
+  footer .visitors strong{font-family:var(--font-display);font-size:1.05rem;color:var(--pink);}
 
   @media (max-width:900px){
     .gallery{columns:2;}
@@ -462,7 +467,7 @@
 
     <div class="tos">
       <div class="tos-card" style="grid-column:1/-1;">
-        <h3>🎨 Do's &amp; Don'ts</h3>
+        <h3><span class="ico"><img src="images/tos-dos.png" alt="" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.remove()"><span class="fb">🎨</span></span> Do's &amp; Don'ts</h3>
         <div class="yesno">
           <div class="box will">
             <h4>✔ Do's</h4>
@@ -476,7 +481,7 @@
       </div>
 
       <div class="tos-card">
-        <h3>📜 Terms of Service</h3>
+        <h3><span class="ico"><img src="images/tos-terms.png" alt="" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.remove()"><span class="fb">📜</span></span> Terms of Service</h3>
         <ul>
           <li>Turn Around Time (TAT): 1–2 months.</li>
           <li>Free revision on sketch: 3×; minor revisions allowed after sketch.</li>
@@ -488,7 +493,7 @@
       </div>
 
       <div class="tos-card">
-        <h3>💸 Refunds</h3>
+        <h3><span class="ico"><img src="images/tos-refund.png" alt="" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.remove()"><span class="fb">💸</span></span> Refunds</h3>
         <ul>
           <li>No refund once the piece is in the making process.</li>
           <li>If I can't seem to finish your commission due to any circumstances, I'll contact you and refund you immediately.</li>
@@ -519,6 +524,7 @@
 
 <footer>
   <div class="wrap">
+    <p class="visitors">♥ <strong id="visit-count">…</strong> visits</p>
     © <span id="year"></span> Archerryz · made with <span class="heart">♥</span> · do not repost without credit
   </div>
 </footer>
@@ -576,6 +582,19 @@
   document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeLightbox(); });
 
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  (function(){
+    var el = document.getElementById('visit-count');
+    if(!el) return;
+    fetch('https://abacus.jasoncameron.dev/hit/archerryz-portfolio/visits')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d && typeof d.value !== 'undefined'){
+          el.textContent = new Intl.NumberFormat('en').format(d.value);
+        } else { throw new Error('no value'); }
+      })
+      .catch(function(){ if(el.parentElement) el.parentElement.style.display = 'none'; });
+  })();
 </script>
 </body>
 </html>
