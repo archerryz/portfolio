@@ -3,35 +3,30 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- ============================================================
-     EDIT ME: page title shown in the browser tab
-     ============================================================ -->
-<title>Nova Sketches — Art Commissions</title>
-<meta name="description" content="Bright, character-driven anime-style art commissions. Prices, terms, and how to reach me." />
 
-<!-- Fonts: loaded from Google Fonts. Works automatically once hosted. -->
+<title>Archerryz — Art Commissions</title>
+<meta name="description" content="Archerryz (Cerii) — self-taught digital artist doing cute anime-style 2D illustration & animation. Commission info, prices, and terms." />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,600&family=Mochiy+Pop+One&display=swap" rel="stylesheet" />
 
 <style>
-  /* ===========================================================
-     THEME TOKENS — tweak these hex values to reskin the whole site
-     =========================================================== */
+
   :root{
-    --cream:   #FEF5FB;   /* page background base */
-    --paper:   #FFFFFF;   /* cards */
-    --ink:     #37264F;   /* main text (plum-ink, softer than black) */
-    --ink-soft:#77689A;   /* secondary text */
-    --pink:    #FF5DA2;   /* primary accent */
-    --grape:   #8A5CF6;   /* secondary accent */
-    --sky:     #35C1EF;   /* tertiary accent */
-    --mint:    #3FDDA0;   /* success / open status */
-    --sun:     #FFC93C;   /* highlight / sparkle */
+    --cream:   #FFF6F9;
+    --paper:   #FFFFFF;
+    --ink:     #3D2A31;
+    --ink-soft:#8B7A80;
+    --pink:    #F389A2;
+    --grape:   #DB5E7E;
+    --sky:     #FFA7BC;
+    --mint:    #EF7D9A;
+    --sun:     #F389A2;
 
     --radius:  22px;
-    --shadow:  0 14px 30px -12px rgba(138,92,246,.35);
-    --shadow-lg:0 26px 50px -18px rgba(138,92,246,.45);
+    --shadow:  0 14px 30px -12px rgba(219,110,138,.30);
+    --shadow-lg:0 26px 50px -18px rgba(219,110,138,.40);
     --maxw:    1120px;
     --font-display:"Baloo 2", system-ui, sans-serif;
     --font-body:"Nunito", system-ui, sans-serif;
@@ -46,9 +41,9 @@
     color:var(--ink);
     line-height:1.6;
     background:
-      radial-gradient(1000px 500px at 12% -8%, rgba(255,93,162,.16), transparent 60%),
-      radial-gradient(900px 520px at 92% 4%, rgba(53,193,239,.16), transparent 60%),
-      radial-gradient(760px 460px at 50% 108%, rgba(138,92,246,.14), transparent 60%),
+      radial-gradient(1000px 500px at 12% -8%, rgba(255,167,188,.45), transparent 60%),
+      radial-gradient(900px 520px at 92% 4%, rgba(243,137,162,.30), transparent 60%),
+      radial-gradient(760px 460px at 50% 108%, rgba(206,195,198,.40), transparent 60%),
       var(--cream);
     background-attachment:fixed;
     overflow-x:hidden;
@@ -57,7 +52,6 @@
   img{max-width:100%;display:block;}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
 
-  /* floating sparkles in the background */
   .sparkle{position:fixed;pointer-events:none;z-index:0;opacity:.55;animation:bob 6s ease-in-out infinite;}
   .sparkle.s1{top:16%;left:6%;color:var(--sun);animation-delay:-1s;}
   .sparkle.s2{top:40%;right:5%;color:var(--pink);animation-delay:-3s;}
@@ -65,12 +59,24 @@
   .sparkle.s4{top:88%;right:12%;color:var(--grape);animation-delay:-4s;}
   @keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(12deg)}}
 
-  /* =================== NAV =================== */
+  .falling{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+  .chibi{position:absolute;top:0;width:60px;height:60px;will-change:transform;animation:fall linear infinite;}
+  .chibi img{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;filter:drop-shadow(0 6px 10px rgba(243,137,162,.25));}
+
+  .chibi .fb{position:absolute;inset:0;display:grid;place-items:center;font-size:2.4rem;}
+  @keyframes fall{
+    0%{transform:translateY(-18vh) translateX(0) rotate(0deg);opacity:0;}
+    12%{opacity:.85;}
+    88%{opacity:.85;}
+    100%{transform:translateY(120vh) translateX(24px) rotate(320deg);opacity:0;}
+  }
+  @media (prefers-reduced-motion:reduce){.falling{display:none;}}
+
   header.nav{
     position:sticky;top:0;z-index:50;
     backdrop-filter:blur(10px);
     background:rgba(255,255,255,.72);
-    border-bottom:2px solid rgba(138,92,246,.12);
+    border-bottom:2px solid rgba(243,137,162,.12);
   }
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px;}
   .logo{
@@ -78,15 +84,18 @@
     display:flex;align-items:center;gap:.5rem;
   }
   .logo .dot{
-    width:32px;height:32px;border-radius:12px;display:grid;place-items:center;color:#fff;font-size:1.1rem;
-    background:linear-gradient(135deg,var(--pink),var(--grape));transform:rotate(-8deg);
+    position:relative;overflow:hidden;
+    width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;font-size:1.1rem;
+    background:linear-gradient(135deg,var(--pink),var(--grape));
   }
+
+  .logo .dot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
   .navlinks{display:flex;gap:.4rem;align-items:center;}
   .navlinks a{
     text-decoration:none;font-weight:700;font-size:.95rem;padding:.5rem .85rem;border-radius:999px;color:var(--ink-soft);
     transition:.18s;
   }
-  .navlinks a:hover{color:var(--ink);background:rgba(138,92,246,.10);}
+  .navlinks a:hover{color:var(--ink);background:rgba(243,137,162,.10);}
   .navlinks a.cta{
     color:#fff;background:linear-gradient(135deg,var(--pink),var(--grape));
     box-shadow:0 8px 18px -8px var(--pink);
@@ -94,7 +103,6 @@
   .navlinks a.cta:hover{filter:brightness(1.05);}
   .burger{display:none;border:none;background:none;cursor:pointer;padding:.4rem;color:var(--ink);}
 
-  /* =================== HERO =================== */
   .hero{position:relative;z-index:1;padding:64px 0 40px;}
   .hero-grid{display:grid;grid-template-columns:auto 1fr;gap:44px;align-items:center;}
   .avatar-wrap{position:relative;flex:none;}
@@ -102,9 +110,9 @@
     width:230px;height:230px;border-radius:50%;object-fit:cover;
     border:8px solid var(--paper);
     box-shadow:var(--shadow-lg);
-    background:linear-gradient(135deg,#ffd9ec,#d9c6ff);
+    background:linear-gradient(135deg,#ffe0ea,#ffbcce);
   }
-  /* rotating dashed ring around avatar */
+
   .avatar-ring{
     position:absolute;inset:-16px;border-radius:50%;
     border:4px dashed var(--pink);
@@ -118,30 +126,30 @@
     padding:.4rem .9rem;border-radius:999px;box-shadow:var(--shadow);
   }
   .status-pill .blip{width:11px;height:11px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 0 var(--mint);animation:pulse 1.8s infinite;}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,221,160,.6)}70%{box-shadow:0 0 0 10px rgba(63,221,160,0)}100%{box-shadow:0 0 0 0 rgba(63,221,160,0)}}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(243,137,162,.6)}70%{box-shadow:0 0 0 10px rgba(243,137,162,0)}100%{box-shadow:0 0 0 0 rgba(243,137,162,0)}}
 
   .kicker{font-family:var(--font-kicker);font-size:.85rem;color:var(--pink);letter-spacing:.5px;margin-bottom:.4rem;}
   .hero h1{
     font-family:var(--font-display);font-weight:800;line-height:1.02;margin:0 0 .5rem;
     font-size:clamp(2.6rem,6vw,4.4rem);
-    background:linear-gradient(120deg,var(--pink),var(--grape) 55%,var(--sky));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
+    color:#232324;
   }
   .hero p.lead{font-size:1.18rem;color:var(--ink-soft);max-width:44ch;margin:.2rem 0 1.4rem;font-weight:600;}
   .socials{display:flex;flex-wrap:wrap;gap:.6rem;}
   .soc{
-    width:46px;height:46px;border-radius:15px;display:grid;place-items:center;text-decoration:none;color:#fff;
+    position:relative;overflow:hidden;
+    width:46px;height:46px;border-radius:50%;display:grid;place-items:center;text-decoration:none;color:#fff;
     box-shadow:var(--shadow);transition:.18s;
   }
   .soc:hover{transform:translateY(-4px) rotate(-6deg);}
   .soc svg{width:22px;height:22px;}
+
+  .soc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+  .soc-fallback{font-family:var(--font-display);font-weight:800;font-size:1rem;color:#fff;z-index:0;}
+  .soc.vgen{background:linear-gradient(135deg,#f389a2,#ffa7bc);}
   .soc.x{background:#1d1d29;}
   .soc.ig{background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);}
-  .soc.discord{background:#5865F2;}
-  .soc.kofi{background:#ff5e5b;}
-  .soc.mail{background:var(--sky);}
 
-  /* =================== SECTION SHELL =================== */
   section.block{position:relative;z-index:1;padding:56px 0;scroll-margin-top:82px;}
   #top{scroll-margin-top:82px;}
   .head{margin-bottom:34px;}
@@ -152,11 +160,10 @@
   }
   .head h2 .star{color:var(--sun);}
 
-  /* =================== GALLERY =================== */
   .filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:26px;}
   .chip{
     font-family:var(--font-body);font-weight:800;font-size:.9rem;cursor:pointer;
-    border:2px solid rgba(138,92,246,.22);background:var(--paper);color:var(--ink-soft);
+    border:2px solid rgba(243,137,162,.22);background:var(--paper);color:var(--ink-soft);
     padding:.45rem 1rem;border-radius:999px;transition:.16s;
   }
   .chip:hover{border-color:var(--grape);color:var(--ink);}
@@ -172,37 +179,62 @@
   .art:nth-child(3n+2){transform:rotate(.8deg);}
   .art:hover{transform:rotate(0) translateY(-6px) scale(1.02);z-index:5;}
   .art .frame{
-    border-radius:18px;overflow:hidden;background:var(--paper);
+    position:relative;aspect-ratio:var(--ar,3/4);
+    border-radius:18px;overflow:hidden;
     border:5px solid var(--paper);box-shadow:var(--shadow);
+    display:grid;place-items:center;
   }
-  .art .ph{aspect-ratio:var(--ar,3/4);display:grid;place-items:center;color:#fff;font-family:var(--font-display);font-weight:800;font-size:1.1rem;text-shadow:0 2px 6px rgba(0,0,0,.2);}
-  /* washi tape strip */
-  .art::before{
-    content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(-4deg);
-    width:74px;height:22px;background:rgba(255,201,60,.75);
-    box-shadow:0 3px 6px rgba(0,0,0,.08);border-radius:2px;z-index:2;
+
+  .art .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+  .art .ph-label{
+    color:#fff;font-family:var(--font-display);font-weight:800;font-size:1.1rem;
+    text-shadow:0 2px 6px rgba(0,0,0,.25);z-index:0;
   }
   .art .tag{
-    position:absolute;bottom:10px;left:10px;background:rgba(55,38,79,.85);color:#fff;
+    position:absolute;bottom:10px;left:10px;background:rgba(58,44,50,.85);color:#fff;
     font-weight:800;font-size:.72rem;padding:.2rem .6rem;border-radius:999px;z-index:3;
   }
-  /* gradient fills for placeholder tiles */
-  .g1{background:linear-gradient(135deg,#ff9ec7,#ff5da2);}
-  .g2{background:linear-gradient(135deg,#8ad4ff,#35c1ef);}
-  .g3{background:linear-gradient(135deg,#c3a8ff,#8a5cf6);}
-  .g4{background:linear-gradient(135deg,#ffe08a,#ffc93c);}
-  .g5{background:linear-gradient(135deg,#8affd0,#3fdda0);}
-  .g6{background:linear-gradient(135deg,#ffb0d6,#c3a8ff);}
 
-  /* =================== PRICES =================== */
+  .g1{background:linear-gradient(135deg,#ffd0dd,#ffa7bc);}
+  .g2{background:linear-gradient(135deg,#ffc0d1,#f389a2);}
+  .g3{background:linear-gradient(135deg,#ffe0e8,#ffb6c8);}
+  .g4{background:linear-gradient(135deg,#f7eef0,#cec3c6);}
+  .g5{background:linear-gradient(135deg,#ffcedd,#f58fa6);}
+  .g6{background:linear-gradient(135deg,#efe6e9,#d8c9ce);}
+
+  .lightbox{
+    position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;
+    padding:24px;background:rgba(58,44,50,.82);backdrop-filter:blur(6px);cursor:zoom-out;
+  }
+  .lightbox.open{display:flex;animation:lbfade .2s ease;}
+  @keyframes lbfade{from{opacity:0}to{opacity:1}}
+  .lightbox img{max-width:92vw;max-height:88vh;border-radius:16px;border:6px solid #fff;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);cursor:default;}
+  .lightbox .close{
+    position:absolute;top:18px;right:22px;width:46px;height:46px;border:none;border-radius:50%;
+    background:#fff;color:var(--ink);font-size:1.3rem;font-weight:800;cursor:pointer;line-height:1;
+    box-shadow:var(--shadow);display:grid;place-items:center;
+  }
+  .lightbox .close:hover{transform:scale(1.08);}
+
+  .more-note{margin-top:32px;text-align:center;}
+  .more-note p{font-weight:700;color:var(--ink-soft);margin:0 0 .9rem;font-size:1.02rem;}
+  .more-btn{
+    display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;
+    font-family:var(--font-display);font-weight:800;color:#fff;
+    background:linear-gradient(135deg,#f389a2,#ffa7bc);
+    padding:.75rem 1.5rem;border-radius:999px;box-shadow:var(--shadow);transition:.18s;
+  }
+  .more-btn:hover{transform:translateY(-3px);filter:brightness(1.05);}
+
   .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;}
   .price{
     background:var(--paper);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);
     border:2px solid transparent;transition:.2s;position:relative;overflow:hidden;
   }
-  .price:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(138,92,246,.25);}
+  .price:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(243,137,162,.25);}
   .price .emoji{font-size:2rem;}
   .price h3{font-family:var(--font-display);font-weight:800;font-size:1.35rem;margin:.4rem 0 .1rem;}
+  .price .sub{font-size:.72rem;font-weight:800;color:var(--grape);margin:0 0 .5rem;text-transform:uppercase;letter-spacing:.6px;}
   .price .cost{font-family:var(--font-display);font-weight:800;font-size:1.9rem;color:var(--pink);}
   .price .cost small{font-size:.85rem;color:var(--ink-soft);font-weight:700;}
   .price ul{list-style:none;padding:0;margin:1rem 0 0;}
@@ -215,23 +247,22 @@
   }
   .addons{margin-top:26px;background:var(--paper);border-radius:var(--radius);padding:22px 26px;box-shadow:var(--shadow);}
   .addons h4{font-family:var(--font-display);margin:0 0 .5rem;font-size:1.1rem;}
-  .addons span{display:inline-block;background:rgba(138,92,246,.10);color:var(--grape);font-weight:800;font-size:.85rem;padding:.35rem .8rem;border-radius:999px;margin:.25rem .3rem .25rem 0;}
+  .addons span{display:inline-block;background:rgba(243,137,162,.10);color:var(--grape);font-weight:800;font-size:.85rem;padding:.35rem .8rem;border-radius:999px;margin:.25rem .3rem .25rem 0;}
 
-  /* =================== TOS =================== */
   .tos{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
   .tos-card{background:var(--paper);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow);}
   .tos-card h3{font-family:var(--font-display);font-size:1.2rem;margin:0 0 .8rem;display:flex;align-items:center;gap:.5rem;}
   .tos-card ul{margin:0;padding-left:1.2rem;}
   .tos-card li{margin:.4rem 0;font-weight:600;color:var(--ink-soft);}
+  .tos-card .note{margin:.9rem 0 0;padding-top:.85rem;border-top:2px dashed rgba(243,137,162,.22);font-style:italic;font-weight:700;color:var(--grape);font-size:.9rem;}
   .yesno{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   .yesno .box{border-radius:16px;padding:16px 18px;}
-  .yesno .will{background:rgba(63,221,160,.14);}
-  .yesno .wont{background:rgba(255,93,162,.12);}
+  .yesno .will{background:rgba(255,167,188,.30);}
+  .yesno .wont{background:rgba(206,195,198,.45);}
   .yesno h4{margin:0 0 .5rem;font-family:var(--font-display);font-size:1rem;}
   .yesno ul{margin:0;padding-left:1.1rem;}
   .yesno li{font-size:.9rem;font-weight:600;color:var(--ink-soft);margin:.2rem 0;}
 
-  /* =================== CONTACT =================== */
   .contact{
     background:linear-gradient(135deg,var(--pink),var(--grape) 60%,var(--sky));
     border-radius:32px;padding:52px 34px;text-align:center;color:#fff;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
@@ -247,11 +278,9 @@
   .contact .socials{justify-content:center;margin-top:1.4rem;}
   .contact .soc{box-shadow:0 8px 18px -8px rgba(0,0,0,.35);}
 
-  /* =================== FOOTER =================== */
   footer{text-align:center;padding:34px 0 44px;color:var(--ink-soft);font-weight:600;font-size:.9rem;position:relative;z-index:1;}
   footer .heart{color:var(--pink);}
 
-  /* =================== RESPONSIVE =================== */
   @media (max-width:900px){
     .gallery{columns:2;}
     .tos{grid-template-columns:1fr;}
@@ -281,17 +310,27 @@
 </head>
 <body>
 
-<!-- decorative sparkles -->
 <svg class="sparkle s1" width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
 <svg class="sparkle s2" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
 <svg class="sparkle s3" width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
 <svg class="sparkle s4" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
 
-<!-- ======================= NAV ======================= -->
+<div class="falling" aria-hidden="true">
+  <div class="chibi" style="left:4%;width:56px;height:56px;animation-duration:15s;animation-delay:-2s;"><img src="images/chibi01.png" alt="" onerror="this.remove()"><span class="fb">🌸</span></div>
+  <div class="chibi" style="left:15%;width:44px;height:44px;animation-duration:19s;animation-delay:-8s;"><img src="images/chibi02.png" alt="" onerror="this.remove()"><span class="fb">⭐</span></div>
+  <div class="chibi" style="left:26%;width:66px;height:66px;animation-duration:13s;animation-delay:-5s;"><img src="images/chibi03.png" alt="" onerror="this.remove()"><span class="fb">🍡</span></div>
+  <div class="chibi" style="left:38%;width:50px;height:50px;animation-duration:21s;animation-delay:-12s;"><img src="images/chibi01.png" alt="" onerror="this.remove()"><span class="fb">🌸</span></div>
+  <div class="chibi" style="left:49%;width:60px;height:60px;animation-duration:16s;animation-delay:-1s;"><img src="images/chibi02.png" alt="" onerror="this.remove()"><span class="fb">⭐</span></div>
+  <div class="chibi" style="left:60%;width:46px;height:46px;animation-duration:18s;animation-delay:-9s;"><img src="images/chibi03.png" alt="" onerror="this.remove()"><span class="fb">🍡</span></div>
+  <div class="chibi" style="left:71%;width:64px;height:64px;animation-duration:14s;animation-delay:-4s;"><img src="images/chibi01.png" alt="" onerror="this.remove()"><span class="fb">🌸</span></div>
+  <div class="chibi" style="left:82%;width:52px;height:52px;animation-duration:20s;animation-delay:-11s;"><img src="images/chibi02.png" alt="" onerror="this.remove()"><span class="fb">⭐</span></div>
+  <div class="chibi" style="left:92%;width:58px;height:58px;animation-duration:17s;animation-delay:-6s;"><img src="images/chibi03.png" alt="" onerror="this.remove()"><span class="fb">🍡</span></div>
+</div>
+
 <header class="nav">
   <div class="wrap nav-inner">
-    <!-- EDIT: your name / brand -->
-    <a class="logo" href="#top"><span class="dot">✦</span>Nova Sketches</a>
+
+    <a class="logo" href="#top"><span class="dot"><img src="images/logo.png" alt="Archerryz logo" onerror="this.remove()">✦</span>Archerryz</a>
     <button class="burger" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
@@ -304,35 +343,32 @@
   </div>
 </header>
 
-<!-- ======================= HERO ======================= -->
 <a id="top"></a>
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="avatar-wrap">
       <div class="avatar-ring"></div>
-      <!-- EDIT: replace src with your profile picture, e.g. src="images/profile.jpg" -->
-      <img class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 230 230'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffd0e8'/%3E%3Cstop offset='1' stop-color='%23cdb4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='230' height='230' fill='url(%23g)'/%3E%3Ctext x='50%25' y='54%25' font-size='90' text-anchor='middle' fill='%23ffffff' font-family='sans-serif'%3E%E2%98%86%3C/text%3E%3C/svg%3E" alt="Artist profile picture" />
+
+      <img class="avatar" src="images/profile.png" alt="Artist profile picture"
+           onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 230 230'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffe0ea'/%3E%3Cstop offset='1' stop-color='%23ffbcce'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='230' height='230' fill='url(%23g)'/%3E%3Ctext x='50%25' y='54%25' font-size='90' text-anchor='middle' fill='%23ffffff' font-family='sans-serif'%3E%E2%98%86%3C/text%3E%3C/svg%3E&quot;;" />
       <span class="status-pill"><span class="blip"></span>Commissions OPEN</span>
     </div>
     <div class="hero-text">
-      <div class="kicker">✿ illustrator &amp; character artist</div>
-      <!-- EDIT: your artist name -->
-      <h1>Nova Sketches</h1>
-      <!-- EDIT: your tagline -->
-      <p class="lead">Bright, character-driven anime-style illustrations — from cozy chibis to full-body hero shots. Let's bring your OC to life!</p>
+      <div class="kicker">✿ 2D illustrator &amp; animator</div>
+
+      <h1>Archerryz</h1>
+
+      <p class="lead">Hewoo! I'm Cerii — a self-taught digital artist. I do 2D illustration &amp; animation with a cute anime style. Here you can find all the info about my commissions!</p>
       <div class="socials">
-        <!-- EDIT: replace the href="#" links with your real profiles -->
-        <a class="soc x" href="#" title="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-6.9L4.8 22H1.7l8-9.2L1 2h7l4.8 6.3zM17.7 20h1.7L7 4H5.2z"/></svg></a>
-        <a class="soc ig" href="#" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.2 1 .5 1.4 1 .5.4.8.8 1 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-1 1.4-.4.5-.8.8-1.4 1-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-1-.5-.4-.8-.8-1-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 1-1.4.4-.5.8-.8 1.4-1 .4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1012 18.6 6.6 6.6 0 0012 5.4zm0 10.9a4.3 4.3 0 110-8.6 4.3 4.3 0 010 8.6zm6.8-11.2a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg></a>
-        <a class="soc discord" href="#" title="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4.4A18 18 0 0015.5 3l-.3.5c1.7.5 2.5 1.2 2.5 1.2a12 12 0 00-9.4 0S9 4 10.8 3.5L10.5 3A18 18 0 006 4.4C3.5 8 3 11.5 3.2 15c1.5 1.1 3 1.8 4.5 2.2l.9-1.5c-.7-.3-1.4-.6-2-1l.5-.4a9 9 0 007.8 0l.5.4c-.6.4-1.3.7-2 1l.9 1.5c1.5-.4 3-1.1 4.5-2.2.3-4-.5-7.5-2.7-10.6zM9.5 13.2c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8zm5 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8z"/></svg></a>
-        <a class="soc kofi" href="#" title="Ko-fi"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.9 8.8c-.4-2.6-2.2-3.8-3.9-3.8H2.4c-.9 0-1.2.7-1.2 1.2 0 1.7 0 6.4.3 8.9.4 3 3.3 4.6 6.4 4.6h6c4.3 0 6.4-2 7.2-4.7 2.4-.3 3.3-2.4 2.8-6.4zM8.2 15c-1.6 0-3-1.5-3-3.6 0-1.7 1-2.7 2.3-2.7.8 0 1.4.5 1.8 1 .4-.5 1-1 1.8-1 1.3 0 2.3 1 2.3 2.7 0 2.1-1.4 3.6-3 3.6zm11-3.4c-.3.2-.6.2-.6.2V8.6h.8c.7 0 1.3.4 1.3 1.4s-.6 1.5-1.5 1.6z"/></svg></a>
-        <a class="soc mail" href="mailto:you@example.com" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+
+        <a class="soc vgen" href="https://vgen.co/archerryz" target="_blank" rel="noopener" title="VGen"><img src="images/vgen.png" alt="VGen" onerror="this.remove()"><span class="soc-fallback">V</span></a>
+        <a class="soc x" href="https://twitter.com/archerryz" target="_blank" rel="noopener" title="X / Twitter"><img src="images/x.png" alt="X" onerror="this.remove()"><span class="soc-fallback">X</span></a>
+        <a class="soc ig" href="https://instagram.com/archierryz" target="_blank" rel="noopener" title="Instagram"><img src="images/instagram.png" alt="Instagram" onerror="this.remove()"><span class="soc-fallback">IG</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ======================= GALLERY ======================= -->
 <section class="block" id="gallery">
   <div class="wrap">
     <div class="head">
@@ -342,32 +378,36 @@
 
     <div class="filters" id="filters">
       <button class="chip active" data-cat="all">All</button>
+      <button class="chip" data-cat="animation">Animation</button>
+      <button class="chip" data-cat="illustration">Illustration</button>
       <button class="chip" data-cat="chibi">Chibi</button>
-      <button class="chip" data-cat="headshot">Headshot</button>
-      <button class="chip" data-cat="halfbody">Half body</button>
-      <button class="chip" data-cat="fullbody">Full body</button>
+      <button class="chip" data-cat="ych">YCH</button>
+      <button class="chip" data-cat="skeb">Skeb</button>
     </div>
 
-    <!-- ======= GALLERY ITEMS =======
-         To use your own art, replace each .ph <div> with an image, e.g.:
-         <div class="frame"><img src="images/art1.png" alt="commission" /></div>
-         Keep the data-cat on the .art wrapper for the filters to work.
-    -->
     <div class="gallery" id="gallery-grid">
-      <div class="art" data-cat="fullbody"><div class="frame"><div class="ph g1" style="--ar:3/4">Art 01</div></div><span class="tag">Full body</span></div>
-      <div class="art" data-cat="chibi"><div class="frame"><div class="ph g2" style="--ar:1/1">Art 02</div></div><span class="tag">Chibi</span></div>
-      <div class="art" data-cat="headshot"><div class="frame"><div class="ph g3" style="--ar:4/5">Art 03</div></div><span class="tag">Headshot</span></div>
-      <div class="art" data-cat="halfbody"><div class="frame"><div class="ph g4" style="--ar:3/4">Art 04</div></div><span class="tag">Half body</span></div>
-      <div class="art" data-cat="fullbody"><div class="frame"><div class="ph g5" style="--ar:9/16">Art 05</div></div><span class="tag">Full body</span></div>
-      <div class="art" data-cat="headshot"><div class="frame"><div class="ph g6" style="--ar:1/1">Art 06</div></div><span class="tag">Headshot</span></div>
-      <div class="art" data-cat="chibi"><div class="frame"><div class="ph g3" style="--ar:1/1">Art 07</div></div><span class="tag">Chibi</span></div>
-      <div class="art" data-cat="halfbody"><div class="frame"><div class="ph g1" style="--ar:4/5">Art 08</div></div><span class="tag">Half body</span></div>
-      <div class="art" data-cat="fullbody"><div class="frame"><div class="ph g2" style="--ar:3/4">Art 09</div></div><span class="tag">Full body</span></div>
+      <div class="art" data-cat="animation"><div class="frame g1" style="--ar:3/4"><img src="images/art01.gif" alt="Animation commission" onerror="this.remove()"><span class="ph-label">Art 01</span></div><span class="tag">Animation</span></div>
+      <div class="art" data-cat="animation"><div class="frame g2" style="--ar:1/1"><img src="images/art02.gif" alt="Animation commission" onerror="this.remove()"><span class="ph-label">Art 02</span></div><span class="tag">Animation</span></div>
+      <div class="art" data-cat="illustration"><div class="frame g3" style="--ar:4/5"><img src="images/art03.jpg" alt="Illustration commission" onerror="this.remove()"><span class="ph-label">Art 03</span></div><span class="tag">Illustration</span></div>
+      <div class="art" data-cat="illustration"><div class="frame g4" style="--ar:3/4"><img src="images/art04.jpg" alt="Illustration commission" onerror="this.remove()"><span class="ph-label">Art 04</span></div><span class="tag">Illustration</span></div>
+      <div class="art" data-cat="illustration"><div class="frame g5" style="--ar:1/1"><img src="images/art05.jpg" alt="Illustration commission" onerror="this.remove()"><span class="ph-label">Art 05</span></div><span class="tag">Illustration</span></div>
+      <div class="art" data-cat="chibi"><div class="frame g6" style="--ar:4/5"><img src="images/art06.jpg" alt="Chibi commission" onerror="this.remove()"><span class="ph-label">Art 06</span></div><span class="tag">Chibi</span></div>
+      <div class="art" data-cat="chibi"><div class="frame g1" style="--ar:1/1"><img src="images/art07.jpg" alt="Chibi commission" onerror="this.remove()"><span class="ph-label">Art 07</span></div><span class="tag">Chibi</span></div>
+      <div class="art" data-cat="chibi"><div class="frame g2" style="--ar:3/4"><img src="images/art08.jpg" alt="Chibi commission" onerror="this.remove()"><span class="ph-label">Art 08</span></div><span class="tag">Chibi</span></div>
+      <div class="art" data-cat="ych"><div class="frame g3" style="--ar:9/16"><img src="images/art09.jpg" alt="YCH commission" onerror="this.remove()"><span class="ph-label">Art 09</span></div><span class="tag">YCH</span></div>
+      <div class="art" data-cat="ych"><div class="frame g4" style="--ar:3/4"><img src="images/art10.jpg" alt="YCH commission" onerror="this.remove()"><span class="ph-label">Art 10</span></div><span class="tag">YCH</span></div>
+      <div class="art" data-cat="skeb"><div class="frame g5" style="--ar:1/1"><img src="images/art11.jpg" alt="Skeb commission" onerror="this.remove()"><span class="ph-label">Art 11</span></div><span class="tag">Skeb</span></div>
+      <div class="art" data-cat="skeb"><div class="frame g6" style="--ar:4/5"><img src="images/art12.jpg" alt="Skeb commission" onerror="this.remove()"><span class="ph-label">Art 12</span></div><span class="tag">Skeb</span></div>
+    </div>
+
+    <div class="more-note">
+      <p>✨ This is just a peek — see my full commission gallery on VGen!</p>
+
+      <a class="more-btn" href="https://vgen.co/archerryz" target="_blank" rel="noopener" title="View more on VGen">View more on VGen →</a>
     </div>
   </div>
 </section>
 
-<!-- ======================= PRICES ======================= -->
 <section class="block" id="prices">
   <div class="wrap">
     <div class="head">
@@ -375,46 +415,39 @@
       <h2><span class="star">✦</span>Price List</h2>
     </div>
 
-    <!-- EDIT: change prices, tiers, and bullet points to match your offerings -->
     <div class="price-grid">
+      <div class="price">
+        <div class="emoji">🎨</div>
+        <h3>Illustration</h3>
+        <div class="sub">SKEB</div>
+        <div class="cost"><small>from </small>$30</div>
+        <ul><li>WIP updates + mistake fixes only</li><li>Headshot only</li><li>Clean rendering</li><li>Simple background</li><li>Delivered as PNG &amp; JPEG</li></ul>
+      </div>
       <div class="price">
         <div class="emoji">🍡</div>
         <h3>Chibi</h3>
-        <div class="cost">$25<small> / char</small></div>
-        <ul><li>Cute, simplified style</li><li>Flat or soft shading</li><li>Transparent PNG</li></ul>
-      </div>
-      <div class="price">
-        <div class="emoji">🌸</div>
-        <h3>Headshot</h3>
-        <div class="cost">$40<small> / char</small></div>
-        <ul><li>Bust-up portrait</li><li>Full rendering</li><li>Simple background</li></ul>
+        <div class="sub">Headshot</div>
+        <div class="cost"><small>from </small>$10</div>
+        <ul><li>Cute &amp; soft art style</li><li>Simple coloring</li><li>Simple background</li><li>Delivered as PNG &amp; JPEG</li></ul>
       </div>
       <div class="price featured">
         <div class="emoji">✨</div>
-        <h3>Half Body</h3>
-        <div class="cost">$65<small> / char</small></div>
-        <ul><li>Waist-up illustration</li><li>Detailed shading</li><li>Themed background</li></ul>
+        <h3>Chibi Animation</h3>
+        <div class="sub">YCH</div>
+        <div class="cost"><small>from </small>$60</div>
+        <ul><li>Ready-made animated pose</li><li>Waist-up only</li><li>4-sec loop animation</li><li>Simple &amp; clean art style</li><li>Delivered as GIF &amp; MP4</li></ul>
       </div>
       <div class="price">
         <div class="emoji">🌟</div>
-        <h3>Full Body</h3>
-        <div class="cost">$95<small> / char</small></div>
-        <ul><li>Head-to-toe pose</li><li>Full rendering</li><li>Custom background</li></ul>
+        <h3>Chibi Animation</h3>
+        <div class="sub">Custom</div>
+        <div class="cost"><small>from </small>$70</div>
+        <ul><li>Customable pose &amp; idea</li><li>Waist-up only</li><li>4-sec loop animation</li><li>Simple &amp; clean art style</li><li>Delivered as GIF &amp; MP4</li></ul>
       </div>
-    </div>
-
-    <div class="addons">
-      <h4>Add-ons</h4>
-      <span>+ Extra character 70%</span>
-      <span>+ Detailed background $20</span>
-      <span>+ Commercial use ×2</span>
-      <span>+ Simple animation $30</span>
-      <span>+ Rush order 25%</span>
     </div>
   </div>
 </section>
 
-<!-- ======================= TERMS OF SERVICE ======================= -->
 <section class="block" id="tos">
   <div class="wrap">
     <div class="head">
@@ -422,74 +455,72 @@
       <h2><span class="star">✦</span>Terms of Service</h2>
     </div>
 
-    <!-- EDIT: adjust these terms to your actual policy -->
     <div class="tos">
-      <div class="tos-card">
-        <h3>💳 Payment &amp; process</h3>
-        <ul>
-          <li>Payment upfront in full via PayPal (USD) before I start.</li>
-          <li>You'll get a sketch for approval before final rendering.</li>
-          <li>Turnaround is usually 1–3 weeks depending on queue.</li>
-          <li>Two rounds of minor revisions are included.</li>
-        </ul>
-      </div>
-      <div class="tos-card">
-        <h3>📜 Rights &amp; refunds</h3>
-        <ul>
-          <li>Art is for personal use; I keep the right to post it.</li>
-          <li>Commercial use requires the add-on and stays credited.</li>
-          <li>Refund possible before the sketch stage (minus a small fee).</li>
-          <li>Please don't trace, resell, or use my art for AI/NFTs.</li>
-        </ul>
-      </div>
       <div class="tos-card" style="grid-column:1/-1;">
-        <h3>🎨 What I'll draw</h3>
+        <h3>🎨 Do's &amp; Don'ts</h3>
         <div class="yesno">
           <div class="box will">
-            <h4>✔ Will draw</h4>
-            <ul><li>Original characters &amp; fanart</li><li>Chibis, animals, mild gore</li><li>Couples &amp; group pieces</li></ul>
+            <h4>✔ Do's</h4>
+            <ul><li>OCs</li><li>Fanarts</li><li>Kemonomimi</li><li>Couples</li><li>Cute teenage boy/girl</li></ul>
           </div>
           <div class="box wont">
-            <h4>✘ Won't draw</h4>
-            <ul><li>NSFW / explicit content</li><li>Hateful or harmful themes</li><li>Real people / mecha-heavy detail</li></ul>
+            <h4>✘ Don'ts</h4>
+            <ul><li>NSFW</li><li>Heavy gore, furry, mecha</li><li>Real person</li><li>Adult / old-looking character</li><li>Detailed outfit / armor</li></ul>
           </div>
         </div>
+      </div>
+
+      <div class="tos-card">
+        <h3>📜 Terms of Service</h3>
+        <ul>
+          <li>Turn Around Time (TAT): 1–2 months.</li>
+          <li>Free revision on sketch: 3×; minor revisions allowed after sketch.</li>
+          <li>Personal use only — commercial use can be discussed first.</li>
+          <li>Payment: full upfront, before sketch.</li>
+          <li>Payment via: Local (BCA / OVO / GoPay) or International (PayPal).</li>
+        </ul>
+        <p class="note">Other than skeb-like comms, feel free to ask about progress if there are no updates in 2 weeks.</p>
+      </div>
+
+      <div class="tos-card">
+        <h3>💸 Refunds</h3>
+        <ul>
+          <li>No refund once the piece is in the making process.</li>
+          <li>If I can't seem to finish your commission due to any circumstances, I'll contact you and refund you immediately.</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ======================= CONTACT ======================= -->
 <section class="block" id="contact">
   <div class="wrap">
     <div class="contact">
       <h2>Ready to commission? ♡</h2>
-      <p>Slots are limited each month. Send me a note with your character reference and the tier you'd like — I'll get back to you soon!</p>
-      <!-- EDIT: your contact email -->
-      <a class="btn" href="mailto:you@example.com">✉ Email me to start</a>
+      <p>Slots are limited each month. Reach out on any of my socials below with your character reference and the tier you'd like — I'll get back to you soon!</p>
       <div class="socials">
-        <a class="soc x" href="#" title="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-6.9L4.8 22H1.7l8-9.2L1 2h7l4.8 6.3zM17.7 20h1.7L7 4H5.2z"/></svg></a>
-        <a class="soc ig" href="#" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.2 1 .5 1.4 1 .5.4.8.8 1 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-1 1.4-.4.5-.8.8-1.4 1-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-1-.5-.4-.8-.8-1-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 1-1.4.4-.5.8-.8 1.4-1 .4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1012 18.6 6.6 6.6 0 0012 5.4zm0 10.9a4.3 4.3 0 110-8.6 4.3 4.3 0 010 8.6zm6.8-11.2a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg></a>
-        <a class="soc discord" href="#" title="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4.4A18 18 0 0015.5 3l-.3.5c1.7.5 2.5 1.2 2.5 1.2a12 12 0 00-9.4 0S9 4 10.8 3.5L10.5 3A18 18 0 006 4.4C3.5 8 3 11.5 3.2 15c1.5 1.1 3 1.8 4.5 2.2l.9-1.5c-.7-.3-1.4-.6-2-1l.5-.4a9 9 0 007.8 0l.5.4c-.6.4-1.3.7-2 1l.9 1.5c1.5-.4 3-1.1 4.5-2.2.3-4-.5-7.5-2.7-10.6zM9.5 13.2c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8zm5 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8z"/></svg></a>
-        <a class="soc kofi" href="#" title="Ko-fi"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.9 8.8c-.4-2.6-2.2-3.8-3.9-3.8H2.4c-.9 0-1.2.7-1.2 1.2 0 1.7 0 6.4.3 8.9.4 3 3.3 4.6 6.4 4.6h6c4.3 0 6.4-2 7.2-4.7 2.4-.3 3.3-2.4 2.8-6.4zM8.2 15c-1.6 0-3-1.5-3-3.6 0-1.7 1-2.7 2.3-2.7.8 0 1.4.5 1.8 1 .4-.5 1-1 1.8-1 1.3 0 2.3 1 2.3 2.7 0 2.1-1.4 3.6-3 3.6z"/></svg></a>
+        <a class="soc vgen" href="https://vgen.co/archerryz" target="_blank" rel="noopener" title="VGen"><img src="images/vgen.png" alt="VGen" onerror="this.remove()"><span class="soc-fallback">V</span></a>
+        <a class="soc x" href="https://twitter.com/archerryz" target="_blank" rel="noopener" title="X / Twitter"><img src="images/x.png" alt="X" onerror="this.remove()"><span class="soc-fallback">X</span></a>
+        <a class="soc ig" href="https://instagram.com/archierryz" target="_blank" rel="noopener" title="Instagram"><img src="images/instagram.png" alt="Instagram" onerror="this.remove()"><span class="soc-fallback">IG</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ======================= FOOTER ======================= -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="close" id="lightbox-close" aria-label="Close">✕</button>
+  <img id="lightbox-img" src="" alt="Commission full view" />
+</div>
+
 <footer>
   <div class="wrap">
-    © <span id="year"></span> Nova Sketches · made with <span class="heart">♥</span> · do not repost without credit
+    © <span id="year"></span> Archerryz · made with <span class="heart">♥</span> · do not repost without credit
   </div>
 </footer>
 
 <script>
-  // mobile nav
   function closeNav(){ document.getElementById('nav').classList.remove('open'); }
 
-  // In-page links: scroll to the section instead of navigating the URL.
-  // (Prevents sandboxed previews from resolving "#gallery" as a new path.)
   document.querySelectorAll('a[href^="#"]').forEach(link=>{
     link.addEventListener('click',e=>{
       const id = link.getAttribute('href').slice(1);
@@ -503,7 +534,6 @@
     });
   });
 
-  // gallery filter
   const chips = document.querySelectorAll('#filters .chip');
   const items = document.querySelectorAll('#gallery-grid .art');
   chips.forEach(chip=>{
@@ -517,7 +547,29 @@
     });
   });
 
-  // current year in footer
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  function openLightbox(src, alt){
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || 'Commission full view';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightboxImg.removeAttribute('src');
+    document.body.style.overflow = '';
+  }
+  items.forEach(it=>{
+    it.addEventListener('click',()=>{
+      const img = it.querySelector('img');
+      if(img && img.getAttribute('src')) openLightbox(img.src, img.alt);
+    });
+  });
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e=>{ if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeLightbox(); });
+
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
