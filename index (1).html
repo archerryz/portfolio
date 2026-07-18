@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- ============================================================
+     EDIT ME: page title shown in the browser tab
+     ============================================================ -->
+<title>Nova Sketches — Art Commissions</title>
+<meta name="description" content="Bright, character-driven anime-style art commissions. Prices, terms, and how to reach me." />
+
+<!-- Fonts: loaded from Google Fonts. Works automatically once hosted. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,600&family=Mochiy+Pop+One&display=swap" rel="stylesheet" />
+
+<style>
+  /* ===========================================================
+     THEME TOKENS — tweak these hex values to reskin the whole site
+     =========================================================== */
+  :root{
+    --cream:   #FEF5FB;   /* page background base */
+    --paper:   #FFFFFF;   /* cards */
+    --ink:     #37264F;   /* main text (plum-ink, softer than black) */
+    --ink-soft:#77689A;   /* secondary text */
+    --pink:    #FF5DA2;   /* primary accent */
+    --grape:   #8A5CF6;   /* secondary accent */
+    --sky:     #35C1EF;   /* tertiary accent */
+    --mint:    #3FDDA0;   /* success / open status */
+    --sun:     #FFC93C;   /* highlight / sparkle */
+
+    --radius:  22px;
+    --shadow:  0 14px 30px -12px rgba(138,92,246,.35);
+    --shadow-lg:0 26px 50px -18px rgba(138,92,246,.45);
+    --maxw:    1120px;
+    --font-display:"Baloo 2", system-ui, sans-serif;
+    --font-body:"Nunito", system-ui, sans-serif;
+    --font-kicker:"Mochiy Pop One", "Baloo 2", sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    line-height:1.6;
+    background:
+      radial-gradient(1000px 500px at 12% -8%, rgba(255,93,162,.16), transparent 60%),
+      radial-gradient(900px 520px at 92% 4%, rgba(53,193,239,.16), transparent 60%),
+      radial-gradient(760px 460px at 50% 108%, rgba(138,92,246,.14), transparent 60%),
+      var(--cream);
+    background-attachment:fixed;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+
+  /* floating sparkles in the background */
+  .sparkle{position:fixed;pointer-events:none;z-index:0;opacity:.55;animation:bob 6s ease-in-out infinite;}
+  .sparkle.s1{top:16%;left:6%;color:var(--sun);animation-delay:-1s;}
+  .sparkle.s2{top:40%;right:5%;color:var(--pink);animation-delay:-3s;}
+  .sparkle.s3{top:72%;left:9%;color:var(--sky);animation-delay:-2s;}
+  .sparkle.s4{top:88%;right:12%;color:var(--grape);animation-delay:-4s;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(12deg)}}
+
+  /* =================== NAV =================== */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(255,255,255,.72);
+    border-bottom:2px solid rgba(138,92,246,.12);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px;}
+  .logo{
+    font-family:var(--font-display);font-weight:800;font-size:1.4rem;text-decoration:none;
+    display:flex;align-items:center;gap:.5rem;
+  }
+  .logo .dot{
+    width:32px;height:32px;border-radius:12px;display:grid;place-items:center;color:#fff;font-size:1.1rem;
+    background:linear-gradient(135deg,var(--pink),var(--grape));transform:rotate(-8deg);
+  }
+  .navlinks{display:flex;gap:.4rem;align-items:center;}
+  .navlinks a{
+    text-decoration:none;font-weight:700;font-size:.95rem;padding:.5rem .85rem;border-radius:999px;color:var(--ink-soft);
+    transition:.18s;
+  }
+  .navlinks a:hover{color:var(--ink);background:rgba(138,92,246,.10);}
+  .navlinks a.cta{
+    color:#fff;background:linear-gradient(135deg,var(--pink),var(--grape));
+    box-shadow:0 8px 18px -8px var(--pink);
+  }
+  .navlinks a.cta:hover{filter:brightness(1.05);}
+  .burger{display:none;border:none;background:none;cursor:pointer;padding:.4rem;color:var(--ink);}
+
+  /* =================== HERO =================== */
+  .hero{position:relative;z-index:1;padding:64px 0 40px;}
+  .hero-grid{display:grid;grid-template-columns:auto 1fr;gap:44px;align-items:center;}
+  .avatar-wrap{position:relative;flex:none;}
+  .avatar{
+    width:230px;height:230px;border-radius:50%;object-fit:cover;
+    border:8px solid var(--paper);
+    box-shadow:var(--shadow-lg);
+    background:linear-gradient(135deg,#ffd9ec,#d9c6ff);
+  }
+  /* rotating dashed ring around avatar */
+  .avatar-ring{
+    position:absolute;inset:-16px;border-radius:50%;
+    border:4px dashed var(--pink);
+    animation:spin 22s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .status-pill{
+    position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+    display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;
+    background:var(--paper);color:var(--ink);font-weight:800;font-size:.82rem;
+    padding:.4rem .9rem;border-radius:999px;box-shadow:var(--shadow);
+  }
+  .status-pill .blip{width:11px;height:11px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 0 var(--mint);animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,221,160,.6)}70%{box-shadow:0 0 0 10px rgba(63,221,160,0)}100%{box-shadow:0 0 0 0 rgba(63,221,160,0)}}
+
+  .kicker{font-family:var(--font-kicker);font-size:.85rem;color:var(--pink);letter-spacing:.5px;margin-bottom:.4rem;}
+  .hero h1{
+    font-family:var(--font-display);font-weight:800;line-height:1.02;margin:0 0 .5rem;
+    font-size:clamp(2.6rem,6vw,4.4rem);
+    background:linear-gradient(120deg,var(--pink),var(--grape) 55%,var(--sky));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{font-size:1.18rem;color:var(--ink-soft);max-width:44ch;margin:.2rem 0 1.4rem;font-weight:600;}
+  .socials{display:flex;flex-wrap:wrap;gap:.6rem;}
+  .soc{
+    width:46px;height:46px;border-radius:15px;display:grid;place-items:center;text-decoration:none;color:#fff;
+    box-shadow:var(--shadow);transition:.18s;
+  }
+  .soc:hover{transform:translateY(-4px) rotate(-6deg);}
+  .soc svg{width:22px;height:22px;}
+  .soc.x{background:#1d1d29;}
+  .soc.ig{background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);}
+  .soc.discord{background:#5865F2;}
+  .soc.kofi{background:#ff5e5b;}
+  .soc.mail{background:var(--sky);}
+
+  /* =================== SECTION SHELL =================== */
+  section.block{position:relative;z-index:1;padding:56px 0;scroll-margin-top:82px;}
+  #top{scroll-margin-top:82px;}
+  .head{margin-bottom:34px;}
+  .head .eyebrow{font-family:var(--font-kicker);font-size:.82rem;color:var(--grape);}
+  .head h2{
+    font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4.5vw,2.9rem);margin:.1rem 0 0;
+    display:flex;align-items:center;gap:.6rem;
+  }
+  .head h2 .star{color:var(--sun);}
+
+  /* =================== GALLERY =================== */
+  .filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:26px;}
+  .chip{
+    font-family:var(--font-body);font-weight:800;font-size:.9rem;cursor:pointer;
+    border:2px solid rgba(138,92,246,.22);background:var(--paper);color:var(--ink-soft);
+    padding:.45rem 1rem;border-radius:999px;transition:.16s;
+  }
+  .chip:hover{border-color:var(--grape);color:var(--ink);}
+  .chip.active{background:linear-gradient(135deg,var(--pink),var(--grape));color:#fff;border-color:transparent;}
+
+  .gallery{columns:3;column-gap:20px;}
+  .art{
+    position:relative;break-inside:avoid;margin:0 0 20px;border-radius:18px;overflow:visible;
+    transition:.2s;cursor:zoom-in;
+  }
+  .art:nth-child(3n){transform:rotate(1.4deg);}
+  .art:nth-child(3n+1){transform:rotate(-1.6deg);}
+  .art:nth-child(3n+2){transform:rotate(.8deg);}
+  .art:hover{transform:rotate(0) translateY(-6px) scale(1.02);z-index:5;}
+  .art .frame{
+    border-radius:18px;overflow:hidden;background:var(--paper);
+    border:5px solid var(--paper);box-shadow:var(--shadow);
+  }
+  .art .ph{aspect-ratio:var(--ar,3/4);display:grid;place-items:center;color:#fff;font-family:var(--font-display);font-weight:800;font-size:1.1rem;text-shadow:0 2px 6px rgba(0,0,0,.2);}
+  /* washi tape strip */
+  .art::before{
+    content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(-4deg);
+    width:74px;height:22px;background:rgba(255,201,60,.75);
+    box-shadow:0 3px 6px rgba(0,0,0,.08);border-radius:2px;z-index:2;
+  }
+  .art .tag{
+    position:absolute;bottom:10px;left:10px;background:rgba(55,38,79,.85);color:#fff;
+    font-weight:800;font-size:.72rem;padding:.2rem .6rem;border-radius:999px;z-index:3;
+  }
+  /* gradient fills for placeholder tiles */
+  .g1{background:linear-gradient(135deg,#ff9ec7,#ff5da2);}
+  .g2{background:linear-gradient(135deg,#8ad4ff,#35c1ef);}
+  .g3{background:linear-gradient(135deg,#c3a8ff,#8a5cf6);}
+  .g4{background:linear-gradient(135deg,#ffe08a,#ffc93c);}
+  .g5{background:linear-gradient(135deg,#8affd0,#3fdda0);}
+  .g6{background:linear-gradient(135deg,#ffb0d6,#c3a8ff);}
+
+  /* =================== PRICES =================== */
+  .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;}
+  .price{
+    background:var(--paper);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);
+    border:2px solid transparent;transition:.2s;position:relative;overflow:hidden;
+  }
+  .price:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(138,92,246,.25);}
+  .price .emoji{font-size:2rem;}
+  .price h3{font-family:var(--font-display);font-weight:800;font-size:1.35rem;margin:.4rem 0 .1rem;}
+  .price .cost{font-family:var(--font-display);font-weight:800;font-size:1.9rem;color:var(--pink);}
+  .price .cost small{font-size:.85rem;color:var(--ink-soft);font-weight:700;}
+  .price ul{list-style:none;padding:0;margin:1rem 0 0;}
+  .price li{padding:.28rem 0 .28rem 1.5rem;position:relative;font-weight:600;color:var(--ink-soft);font-size:.95rem;}
+  .price li::before{content:"✦";position:absolute;left:0;color:var(--sun);}
+  .price.featured{border-color:var(--pink);}
+  .price.featured::after{
+    content:"popular";position:absolute;top:14px;right:-30px;transform:rotate(38deg);
+    background:var(--pink);color:#fff;font-family:var(--font-kicker);font-size:.62rem;padding:.25rem 2.4rem;
+  }
+  .addons{margin-top:26px;background:var(--paper);border-radius:var(--radius);padding:22px 26px;box-shadow:var(--shadow);}
+  .addons h4{font-family:var(--font-display);margin:0 0 .5rem;font-size:1.1rem;}
+  .addons span{display:inline-block;background:rgba(138,92,246,.10);color:var(--grape);font-weight:800;font-size:.85rem;padding:.35rem .8rem;border-radius:999px;margin:.25rem .3rem .25rem 0;}
+
+  /* =================== TOS =================== */
+  .tos{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .tos-card{background:var(--paper);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow);}
+  .tos-card h3{font-family:var(--font-display);font-size:1.2rem;margin:0 0 .8rem;display:flex;align-items:center;gap:.5rem;}
+  .tos-card ul{margin:0;padding-left:1.2rem;}
+  .tos-card li{margin:.4rem 0;font-weight:600;color:var(--ink-soft);}
+  .yesno{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .yesno .box{border-radius:16px;padding:16px 18px;}
+  .yesno .will{background:rgba(63,221,160,.14);}
+  .yesno .wont{background:rgba(255,93,162,.12);}
+  .yesno h4{margin:0 0 .5rem;font-family:var(--font-display);font-size:1rem;}
+  .yesno ul{margin:0;padding-left:1.1rem;}
+  .yesno li{font-size:.9rem;font-weight:600;color:var(--ink-soft);margin:.2rem 0;}
+
+  /* =================== CONTACT =================== */
+  .contact{
+    background:linear-gradient(135deg,var(--pink),var(--grape) 60%,var(--sky));
+    border-radius:32px;padding:52px 34px;text-align:center;color:#fff;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
+  }
+  .contact h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4.5vw,2.8rem);margin:0 0 .4rem;}
+  .contact p{font-size:1.1rem;max-width:46ch;margin:0 auto 1.4rem;font-weight:600;opacity:.95;}
+  .contact .btn{
+    display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:var(--ink);text-decoration:none;
+    font-family:var(--font-display);font-weight:800;padding:.8rem 1.6rem;border-radius:999px;box-shadow:0 12px 26px -10px rgba(0,0,0,.4);
+    transition:.18s;
+  }
+  .contact .btn:hover{transform:translateY(-4px);}
+  .contact .socials{justify-content:center;margin-top:1.4rem;}
+  .contact .soc{box-shadow:0 8px 18px -8px rgba(0,0,0,.35);}
+
+  /* =================== FOOTER =================== */
+  footer{text-align:center;padding:34px 0 44px;color:var(--ink-soft);font-weight:600;font-size:.9rem;position:relative;z-index:1;}
+  footer .heart{color:var(--pink);}
+
+  /* =================== RESPONSIVE =================== */
+  @media (max-width:900px){
+    .gallery{columns:2;}
+    .tos{grid-template-columns:1fr;}
+  }
+  @media (max-width:720px){
+    .burger{display:block;}
+    .navlinks{
+      position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:stretch;gap:.2rem;
+      background:var(--paper);padding:14px 18px;box-shadow:var(--shadow);
+      transform:translateY(-140%);transition:.28s;
+    }
+    .navlinks.open{transform:translateY(0);}
+    .navlinks a{padding:.7rem .9rem;}
+    .hero-grid{grid-template-columns:1fr;text-align:center;gap:26px;}
+    .avatar-wrap{margin:0 auto;}
+    .hero p.lead{margin-left:auto;margin-right:auto;}
+    .socials{justify-content:center;}
+  }
+  @media (max-width:520px){
+    .gallery{columns:1;}
+    .yesno{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- decorative sparkles -->
+<svg class="sparkle s1" width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
+<svg class="sparkle s2" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
+<svg class="sparkle s3" width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
+<svg class="sparkle s4" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
+
+<!-- ======================= NAV ======================= -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <!-- EDIT: your name / brand -->
+    <a class="logo" href="#top"><span class="dot">✦</span>Nova Sketches</a>
+    <button class="burger" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="navlinks" id="nav">
+      <a href="#gallery" onclick="closeNav()">Gallery</a>
+      <a href="#prices" onclick="closeNav()">Prices</a>
+      <a href="#tos" onclick="closeNav()">Terms</a>
+      <a class="cta" href="#contact" onclick="closeNav()">Commission me ♡</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <!-- EDIT: replace src with your profile picture, e.g. src="images/profile.jpg" -->
+      <img class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 230 230'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffd0e8'/%3E%3Cstop offset='1' stop-color='%23cdb4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='230' height='230' fill='url(%23g)'/%3E%3Ctext x='50%25' y='54%25' font-size='90' text-anchor='middle' fill='%23ffffff' font-family='sans-serif'%3E%E2%98%86%3C/text%3E%3C/svg%3E" alt="Artist profile picture" />
+      <span class="status-pill"><span class="blip"></span>Commissions OPEN</span>
+    </div>
+    <div class="hero-text">
+      <div class="kicker">✿ illustrator &amp; character artist</div>
+      <!-- EDIT: your artist name -->
+      <h1>Nova Sketches</h1>
+      <!-- EDIT: your tagline -->
+      <p class="lead">Bright, character-driven anime-style illustrations — from cozy chibis to full-body hero shots. Let's bring your OC to life!</p>
+      <div class="socials">
+        <!-- EDIT: replace the href="#" links with your real profiles -->
+        <a class="soc x" href="#" title="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-6.9L4.8 22H1.7l8-9.2L1 2h7l4.8 6.3zM17.7 20h1.7L7 4H5.2z"/></svg></a>
+        <a class="soc ig" href="#" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.2 1 .5 1.4 1 .5.4.8.8 1 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-1 1.4-.4.5-.8.8-1.4 1-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-1-.5-.4-.8-.8-1-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 1-1.4.4-.5.8-.8 1.4-1 .4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1012 18.6 6.6 6.6 0 0012 5.4zm0 10.9a4.3 4.3 0 110-8.6 4.3 4.3 0 010 8.6zm6.8-11.2a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg></a>
+        <a class="soc discord" href="#" title="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4.4A18 18 0 0015.5 3l-.3.5c1.7.5 2.5 1.2 2.5 1.2a12 12 0 00-9.4 0S9 4 10.8 3.5L10.5 3A18 18 0 006 4.4C3.5 8 3 11.5 3.2 15c1.5 1.1 3 1.8 4.5 2.2l.9-1.5c-.7-.3-1.4-.6-2-1l.5-.4a9 9 0 007.8 0l.5.4c-.6.4-1.3.7-2 1l.9 1.5c1.5-.4 3-1.1 4.5-2.2.3-4-.5-7.5-2.7-10.6zM9.5 13.2c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8zm5 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8z"/></svg></a>
+        <a class="soc kofi" href="#" title="Ko-fi"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.9 8.8c-.4-2.6-2.2-3.8-3.9-3.8H2.4c-.9 0-1.2.7-1.2 1.2 0 1.7 0 6.4.3 8.9.4 3 3.3 4.6 6.4 4.6h6c4.3 0 6.4-2 7.2-4.7 2.4-.3 3.3-2.4 2.8-6.4zM8.2 15c-1.6 0-3-1.5-3-3.6 0-1.7 1-2.7 2.3-2.7.8 0 1.4.5 1.8 1 .4-.5 1-1 1.8-1 1.3 0 2.3 1 2.3 2.7 0 2.1-1.4 3.6-3 3.6zm11-3.4c-.3.2-.6.2-.6.2V8.6h.8c.7 0 1.3.4 1.3 1.4s-.6 1.5-1.5 1.6z"/></svg></a>
+        <a class="soc mail" href="mailto:you@example.com" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= GALLERY ======================= -->
+<section class="block" id="gallery">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">★ portfolio</div>
+      <h2><span class="star">✦</span>Commission Showcase</h2>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="chip active" data-cat="all">All</button>
+      <button class="chip" data-cat="chibi">Chibi</button>
+      <button class="chip" data-cat="headshot">Headshot</button>
+      <button class="chip" data-cat="halfbody">Half body</button>
+      <button class="chip" data-cat="fullbody">Full body</button>
+    </div>
+
+    <!-- ======= GALLERY ITEMS =======
+         To use your own art, replace each .ph <div> with an image, e.g.:
+         <div class="frame"><img src="images/art1.png" alt="commission" /></div>
+         Keep the data-cat on the .art wrapper for the filters to work.
+    -->
+    <div class="gallery" id="gallery-grid">
+      <div class="art" data-cat="fullbody"><div class="frame"><div class="ph g1" style="--ar:3/4">Art 01</div></div><span class="tag">Full body</span></div>
+      <div class="art" data-cat="chibi"><div class="frame"><div class="ph g2" style="--ar:1/1">Art 02</div></div><span class="tag">Chibi</span></div>
+      <div class="art" data-cat="headshot"><div class="frame"><div class="ph g3" style="--ar:4/5">Art 03</div></div><span class="tag">Headshot</span></div>
+      <div class="art" data-cat="halfbody"><div class="frame"><div class="ph g4" style="--ar:3/4">Art 04</div></div><span class="tag">Half body</span></div>
+      <div class="art" data-cat="fullbody"><div class="frame"><div class="ph g5" style="--ar:9/16">Art 05</div></div><span class="tag">Full body</span></div>
+      <div class="art" data-cat="headshot"><div class="frame"><div class="ph g6" style="--ar:1/1">Art 06</div></div><span class="tag">Headshot</span></div>
+      <div class="art" data-cat="chibi"><div class="frame"><div class="ph g3" style="--ar:1/1">Art 07</div></div><span class="tag">Chibi</span></div>
+      <div class="art" data-cat="halfbody"><div class="frame"><div class="ph g1" style="--ar:4/5">Art 08</div></div><span class="tag">Half body</span></div>
+      <div class="art" data-cat="fullbody"><div class="frame"><div class="ph g2" style="--ar:3/4">Art 09</div></div><span class="tag">Full body</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PRICES ======================= -->
+<section class="block" id="prices">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">★ what it costs</div>
+      <h2><span class="star">✦</span>Price List</h2>
+    </div>
+
+    <!-- EDIT: change prices, tiers, and bullet points to match your offerings -->
+    <div class="price-grid">
+      <div class="price">
+        <div class="emoji">🍡</div>
+        <h3>Chibi</h3>
+        <div class="cost">$25<small> / char</small></div>
+        <ul><li>Cute, simplified style</li><li>Flat or soft shading</li><li>Transparent PNG</li></ul>
+      </div>
+      <div class="price">
+        <div class="emoji">🌸</div>
+        <h3>Headshot</h3>
+        <div class="cost">$40<small> / char</small></div>
+        <ul><li>Bust-up portrait</li><li>Full rendering</li><li>Simple background</li></ul>
+      </div>
+      <div class="price featured">
+        <div class="emoji">✨</div>
+        <h3>Half Body</h3>
+        <div class="cost">$65<small> / char</small></div>
+        <ul><li>Waist-up illustration</li><li>Detailed shading</li><li>Themed background</li></ul>
+      </div>
+      <div class="price">
+        <div class="emoji">🌟</div>
+        <h3>Full Body</h3>
+        <div class="cost">$95<small> / char</small></div>
+        <ul><li>Head-to-toe pose</li><li>Full rendering</li><li>Custom background</li></ul>
+      </div>
+    </div>
+
+    <div class="addons">
+      <h4>Add-ons</h4>
+      <span>+ Extra character 70%</span>
+      <span>+ Detailed background $20</span>
+      <span>+ Commercial use ×2</span>
+      <span>+ Simple animation $30</span>
+      <span>+ Rush order 25%</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= TERMS OF SERVICE ======================= -->
+<section class="block" id="tos">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">★ please read</div>
+      <h2><span class="star">✦</span>Terms of Service</h2>
+    </div>
+
+    <!-- EDIT: adjust these terms to your actual policy -->
+    <div class="tos">
+      <div class="tos-card">
+        <h3>💳 Payment &amp; process</h3>
+        <ul>
+          <li>Payment upfront in full via PayPal (USD) before I start.</li>
+          <li>You'll get a sketch for approval before final rendering.</li>
+          <li>Turnaround is usually 1–3 weeks depending on queue.</li>
+          <li>Two rounds of minor revisions are included.</li>
+        </ul>
+      </div>
+      <div class="tos-card">
+        <h3>📜 Rights &amp; refunds</h3>
+        <ul>
+          <li>Art is for personal use; I keep the right to post it.</li>
+          <li>Commercial use requires the add-on and stays credited.</li>
+          <li>Refund possible before the sketch stage (minus a small fee).</li>
+          <li>Please don't trace, resell, or use my art for AI/NFTs.</li>
+        </ul>
+      </div>
+      <div class="tos-card" style="grid-column:1/-1;">
+        <h3>🎨 What I'll draw</h3>
+        <div class="yesno">
+          <div class="box will">
+            <h4>✔ Will draw</h4>
+            <ul><li>Original characters &amp; fanart</li><li>Chibis, animals, mild gore</li><li>Couples &amp; group pieces</li></ul>
+          </div>
+          <div class="box wont">
+            <h4>✘ Won't draw</h4>
+            <ul><li>NSFW / explicit content</li><li>Hateful or harmful themes</li><li>Real people / mecha-heavy detail</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CONTACT ======================= -->
+<section class="block" id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Ready to commission? ♡</h2>
+      <p>Slots are limited each month. Send me a note with your character reference and the tier you'd like — I'll get back to you soon!</p>
+      <!-- EDIT: your contact email -->
+      <a class="btn" href="mailto:you@example.com">✉ Email me to start</a>
+      <div class="socials">
+        <a class="soc x" href="#" title="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-6.9L4.8 22H1.7l8-9.2L1 2h7l4.8 6.3zM17.7 20h1.7L7 4H5.2z"/></svg></a>
+        <a class="soc ig" href="#" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.2 1 .5 1.4 1 .5.4.8.8 1 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-1 1.4-.4.5-.8.8-1.4 1-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-1-.5-.4-.8-.8-1-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 1-1.4.4-.5.8-.8 1.4-1 .4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1012 18.6 6.6 6.6 0 0012 5.4zm0 10.9a4.3 4.3 0 110-8.6 4.3 4.3 0 010 8.6zm6.8-11.2a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg></a>
+        <a class="soc discord" href="#" title="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4.4A18 18 0 0015.5 3l-.3.5c1.7.5 2.5 1.2 2.5 1.2a12 12 0 00-9.4 0S9 4 10.8 3.5L10.5 3A18 18 0 006 4.4C3.5 8 3 11.5 3.2 15c1.5 1.1 3 1.8 4.5 2.2l.9-1.5c-.7-.3-1.4-.6-2-1l.5-.4a9 9 0 007.8 0l.5.4c-.6.4-1.3.7-2 1l.9 1.5c1.5-.4 3-1.1 4.5-2.2.3-4-.5-7.5-2.7-10.6zM9.5 13.2c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8zm5 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8z"/></svg></a>
+        <a class="soc kofi" href="#" title="Ko-fi"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.9 8.8c-.4-2.6-2.2-3.8-3.9-3.8H2.4c-.9 0-1.2.7-1.2 1.2 0 1.7 0 6.4.3 8.9.4 3 3.3 4.6 6.4 4.6h6c4.3 0 6.4-2 7.2-4.7 2.4-.3 3.3-2.4 2.8-6.4zM8.2 15c-1.6 0-3-1.5-3-3.6 0-1.7 1-2.7 2.3-2.7.8 0 1.4.5 1.8 1 .4-.5 1-1 1.8-1 1.3 0 2.3 1 2.3 2.7 0 2.1-1.4 3.6-3 3.6z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer>
+  <div class="wrap">
+    © <span id="year"></span> Nova Sketches · made with <span class="heart">♥</span> · do not repost without credit
+  </div>
+</footer>
+
+<script>
+  // mobile nav
+  function closeNav(){ document.getElementById('nav').classList.remove('open'); }
+
+  // In-page links: scroll to the section instead of navigating the URL.
+  // (Prevents sandboxed previews from resolving "#gallery" as a new path.)
+  document.querySelectorAll('a[href^="#"]').forEach(link=>{
+    link.addEventListener('click',e=>{
+      const id = link.getAttribute('href').slice(1);
+      if(!id) return;                     // plain "#" placeholder links do nothing
+      const target = document.getElementById(id);
+      if(!target) return;
+      e.preventDefault();
+      closeNav();
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+    });
+  });
+
+  // gallery filter
+  const chips = document.querySelectorAll('#filters .chip');
+  const items = document.querySelectorAll('#gallery-grid .art');
+  chips.forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      chips.forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      const cat = chip.dataset.cat;
+      items.forEach(it=>{
+        it.style.display = (cat==='all'||it.dataset.cat===cat) ? '' : 'none';
+      });
+    });
+  });
+
+  // current year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
